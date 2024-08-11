@@ -1,4 +1,5 @@
 // ignore_for_file: file_names, unused_local_variable, non_constant_identifier_names, prefer_const_constructors, avoid_print
+import 'package:appfood2/view/Admin/Admindashboard.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
@@ -81,7 +82,7 @@ class AuthController extends GetxController {
               var data = documentSnapshot.data() as Map;
               print("Admin data: ${data["type"]}");
               setPrefernce(data);
-              // Get.offAll(AdminDashboard());
+              Get.offAll(AdminDashboard());
             } else {
               print("Document does not exist on the database");
             }

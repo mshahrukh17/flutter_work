@@ -1,9 +1,11 @@
 // ignore_for_file: camel_case_types, prefer_const_constructors, prefer_const_literals_to_create_immutables, avoid_unnecessary_containers
 
 import 'package:appfood2/view/Admin/Admindashboard.dart';
+import 'package:appfood2/view/Admin/Dishes.dart';
 import 'package:appfood2/view/Admin/Menu.dart';
 import 'package:appfood2/view/Admin/userslist.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -94,17 +96,22 @@ class _drawerdataState extends State<drawerdata> {
                 elevation: 5,
                 color: Colors.grey.shade300,
                 child: ListTile(
-                  leading: Icon(Icons.restaurant_menu),
+                  leading: Icon(Icons.category),
                   title: Text("M E N U"),
                 ),
                            ),
              ),
-            Card(
-              elevation: 5,
-              color: Colors.grey.shade300,
-              child: ListTile(
-                leading: Icon(Icons.settings),
-                title: Text("S E T T I N G S"),
+            GestureDetector(
+              onTap: () {
+                Get.off(Dishes());
+              },
+              child: Card(
+                elevation: 5,
+                color: Colors.grey.shade300,
+                child: ListTile(
+                  leading: Icon(Icons.restaurant_menu),
+                  title: Text("D I S H E S"),
+                ),
               ),
             ),
              Card(

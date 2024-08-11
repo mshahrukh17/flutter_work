@@ -6,8 +6,7 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:get/get.dart';
 
 class AdminItemController extends GetxController {
- 
- var allitems = [];
+  var allitems = [];
 
   additem(String name) async {
     if (name.isEmpty) {
@@ -30,27 +29,38 @@ class AdminItemController extends GetxController {
   getallitemslist() async {
     allitems.clear();
     CollectionReference items = FirebaseFirestore.instance.collection("items");
-    await items.get().then((QuerySnapshot snapshot){
-      snapshot.docs.forEach((doc) { 
+    await items.get().then((QuerySnapshot snapshot) {
+      snapshot.docs.forEach((doc) {
         allitems.add(doc.data());
       });
       update();
     });
   }
 
-  deleteitem(index){
+  deleteitem(index) {
     CollectionReference items = FirebaseFirestore.instance.collection("items");
     items.doc(allitems[index]["itemkey"]).delete();
     allitems.removeAt(index);
     update();
   }
 
-  updateitem(index){
-    CollectionReference items = FirebaseFirestore.instance.collection("items");
-    items.doc(allitems[index]["itemkey"]).update({
-      "status": !allitems[index]["status"],
-    });
-    allitems[index]["status"] = !allitems[index]["status"];
+  updateitem(index, status, name) async {
+    if (status == true) {
+      CollectionReference items =
+          FirebaseFirestore.instance.collection("items");
+      await items.doc(allitems[index]["itemkey"]).update({
+        "status": !allitems[index]["status"],
+      });
+      allitems[index]["status"] = !allitems[index]["status"];
+    } else {
+      CollectionReference updatename =
+          FirebaseFirestore.instance.collection("items");
+      await updatename.doc(allitems[index]["itemkey"]).update({
+        "name": name,
+      });
+      message("Updated", "Item name Updated");
+      getallitemslist();
+    }
     update();
   }
 }
