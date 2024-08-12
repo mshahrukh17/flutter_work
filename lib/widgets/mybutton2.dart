@@ -4,10 +4,12 @@ import 'package:flutter/material.dart';
 
 class Mybutton2 extends StatelessWidget {
   var buttontext;
+  var elevation;
   final void Function() onpress;
  Mybutton2({super.key,
  this.buttontext, 
- required this.onpress
+ required this.onpress,
+ this.elevation
  });
 
   @override
@@ -16,7 +18,7 @@ class Mybutton2 extends StatelessWidget {
       style: ElevatedButton.styleFrom(
         backgroundColor: Colors.black,
         foregroundColor: Colors.white,
-        elevation: 20,
+        elevation: elevation,
         disabledForegroundColor: Colors.white,
         disabledBackgroundColor: Colors.black,
         shadowColor: Colors.black,
