@@ -4,8 +4,8 @@ import 'package:appfood2/view/Admin/Admindashboard.dart';
 import 'package:appfood2/view/Admin/Dishes.dart';
 import 'package:appfood2/view/Admin/Menu.dart';
 import 'package:appfood2/view/Admin/userslist.dart';
+import 'package:appfood2/view/LoginPage.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -31,6 +31,12 @@ class _drawerdataState extends State<drawerdata> {
     name = prefs.getString("name")!;
     email = prefs.getString("email")!;
     setState(() {});
+  }
+
+  logout() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.clear();
+    Get.offAll(LoginPage());
   }
 
   @override
@@ -114,14 +120,19 @@ class _drawerdataState extends State<drawerdata> {
                 ),
               ),
             ),
-             Card(
-              elevation: 5,
-              color: Colors.grey.shade300,
-              child: ListTile(
-                leading: Icon(Icons.exit_to_app),
-                title: Text("L O G O U T"),
-              ),
-            ),
+             GestureDetector(
+              onTap: () {
+                logout();
+              },
+               child: Card(
+                elevation: 5,
+                color: Colors.grey.shade300,
+                child: ListTile(
+                  leading: Icon(Icons.exit_to_app),
+                  title: Text("L O G O U T"),
+                ),
+                           ),
+             ),
           ],
         ),
       ),

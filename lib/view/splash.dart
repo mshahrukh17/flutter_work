@@ -2,7 +2,7 @@
 
 import 'package:appfood2/view/Admin/Admindashboard.dart';
 import 'package:appfood2/view/LoginPage.dart';
-import 'package:appfood2/view/User.dart';
+import 'package:appfood2/view/UserView.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -26,8 +26,8 @@ class _SplashState extends State<Splash> {
 
    checkUser() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    var userCheck = prefs.getBool("Login");
-    if(userCheck == true){
+    var userCheck = prefs.getBool("Login")?? false;
+    if(userCheck){
       var userType = prefs.getString("usertype");
       if(userType=="admin"){
         Get.offAll(AdminDashboard());

@@ -1,7 +1,5 @@
 // ignore_for_file: prefer_const_constructors, file_names, prefer_const_literals_to_create_immutables, sized_box_for_whitespace, avoid_unnecessary_containers
 
-import 'dart:io';
-
 import 'package:appfood2/Controller/AdminController/AdminDishController.dart';
 import 'package:appfood2/view/Admin/drawerdata.dart';
 import 'package:appfood2/widgets/TextFied.dart';
@@ -37,134 +35,188 @@ class _DishesState extends State<Dishes> {
         ),
         appBar: AppBar(
           centerTitle: true,
+          backgroundColor: Colors.white,
           title: const Text("Dishes"),
         ),
         body: GetBuilder<AdminDishController>(
           builder: (controller) {
             return controller.isloading
                 ? Center(child: CircularProgressIndicator())
-                : Column(
-                    children: [
-                      Center(
-                        child: GestureDetector(
-                            onTap: () {
-                              showModalBottomSheet(
-                                  context: context,
-                                  builder: (BuildContext context) {
-                                    return SizedBox(
-                                        height: 80.0,
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceEvenly,
-                                          children: [
-                                            CircleAvatar(
-                                                radius: 30,
-                                                child: Icon(
-                                                  Icons.camera_alt_outlined,
-                                                  color: Colors.black,
-                                                )),
-                                            GestureDetector(
-                                              onTap: () {
-                                                controller.selectimage(
-                                                    ImageSource.gallery);
-                                                Navigator.pop(context);
-                                              },
-                                              child: CircleAvatar(
+                : SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        Center(
+                          child: GestureDetector(
+                              onTap: () {
+                                showModalBottomSheet(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return SizedBox(
+                                          height: 80.0,
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceEvenly,
+                                            children: [
+                                              CircleAvatar(
                                                   radius: 30,
                                                   child: Icon(
-                                                    Icons.photo,
+                                                    Icons.camera_alt_outlined,
                                                     color: Colors.black,
                                                   )),
-                                            )
-                                          ],
-                                        ));
-                                  });
-                            },
-                            child: controller.image == null
-                                ? CircleAvatar(
-                                    radius: 50,
-                                    backgroundColor: Colors.grey.shade300,
-                                    child: Icon(
-                                      Icons.person,
-                                      size: 40,
-                                      color: Colors.black,
-                                    ))
-                                : CircleAvatar(
-                                    radius: 50,
-                                    backgroundColor: Colors.transparent,
-                                    backgroundImage:
-                                        FileImage(controller.image),
-                                  )),
-                      ),
-                      TextFieldWidget2(
-                          prefixicon: Icon(Icons.restaurant),
-                          hinttext: "Item name",
-                          width: MediaQuery.of(context).size.width * 0.7,
-                          controller: controller.namecontroller),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          TextFieldWidget2(
-                              prefixicon: Icon(Icons.monetization_on),
-                              hinttext: "Item Price",
-                              width: MediaQuery.of(context).size.width * 0.4,
-                              controller: controller.pricecontroller),
-                          Container(
-                            decoration: BoxDecoration(
-                                border: Border.all(color: Colors.black),
-                                borderRadius: BorderRadius.circular(8)),
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: DropdownButtonHideUnderline(
-                                child: DropdownButton(
-                                  hint: controller.dropdownvalue == ""
-                                      ? Text('Select Category')
-                                      : Text(
-                                          controller.dropdownvalue.toString()),
-                                  // value: controller.dropdownvalue,
-                                  onChanged: (newValue) {
-                                    newValue as Map;
-                                    controller.setdropdown(newValue);
-                                  },
-                                  items: controller.alldish.map((item) {
-                                    return DropdownMenuItem(
-                                      value: item,
-                                      child: Text(item["name"]),
-                                    );
-                                  }).toList(),
+                                              GestureDetector(
+                                                onTap: () {
+                                                  controller.selectimage(
+                                                      ImageSource.gallery);
+                                                  Navigator.pop(context);
+                                                },
+                                                child: GestureDetector(
+                                                  onTap: () {
+                                                    controller.selectimage(
+                                                        ImageSource.camera);
+                                                    Navigator.pop(context);
+                                                  },
+                                                  child: CircleAvatar(
+                                                      radius: 30,
+                                                      child: Icon(
+                                                        Icons.photo,
+                                                        color: Colors.black,
+                                                      )),
+                                                ),
+                                              )
+                                            ],
+                                          ));
+                                    });
+                              },
+                              child: controller.image == null
+                                  ? CircleAvatar(
+                                      radius: 50,
+                                      backgroundColor: Colors.grey.shade300,
+                                      child: Icon(
+                                        Icons.person,
+                                        size: 40,
+                                        color: Colors.black,
+                                      ))
+                                  : CircleAvatar(
+                                      radius: 50,
+                                      backgroundColor: Colors.transparent,
+                                      backgroundImage:
+                                          FileImage(controller.image),
+                                    )),
+                        ),
+                        TextFieldWidget2(
+                            prefixicon: Icon(Icons.restaurant),
+                            hinttext: "Item name",
+                            width: MediaQuery.of(context).size.width * 0.7,
+                            controller: controller.namecontroller),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            TextFieldWidget2(
+                                prefixicon: Icon(Icons.monetization_on),
+                                hinttext: "Item Price",
+                                width: MediaQuery.of(context).size.width * 0.4,
+                                controller: controller.pricecontroller),
+                            Container(
+                              decoration: BoxDecoration(
+                                  border: Border.all(color: Colors.black),
+                                  borderRadius: BorderRadius.circular(8)),
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: DropdownButtonHideUnderline(
+                                  child: DropdownButton(
+                                    hint: controller.dropdownvalue == ""
+                                        ? Text('Select Category')
+                                        : Text(controller.dropdownvalue
+                                            .toString()),
+                                    // value: controller.dropdownvalue,
+                                    onChanged: (newValue) {
+                                      newValue as Map;
+                                      controller.setdropdown(newValue);
+                                    },
+                                    items: controller.alldish.map((item) {
+                                      return DropdownMenuItem(
+                                        value: item,
+                                        child: Text(item["name"]),
+                                      );
+                                    }).toList(),
+                                  ),
                                 ),
                               ),
                             ),
-                          ),
-                        ],
-                      ),
-                      Mybutton2(
-                        onpress: () {
-                          controller.adddishes();
-                        },
-                        buttontext: "Add Item",
-                      ),
-                      Container(
-                        margin: EdgeInsets.all(10),
-                        color: Colors.transparent,
-                        height: 80,
-                        child: ListView.builder(
-                            shrinkWrap: true,
-                            scrollDirection: Axis.horizontal,
-                            itemCount: controller.alldish.length,
-                            itemBuilder: (context, index) {
-                              return Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Mybutton2(
-                                  onpress: () {},
-                                  buttontext: controller.alldish[index]["name"]
-                                      .toString()
-                                      .toUpperCase(),
-                                ),
-                              );
-                            }),
-                      )
-                    ],
+                          ],
+                        ),
+                        controller.isloading
+                            ? CircularProgressIndicator()
+                            : Mybutton2(
+                                onpress: () {
+                                  controller.adddishes();
+                                },
+                                buttontext: "Add Item",
+                              ),
+                        Container(
+                          margin: EdgeInsets.all(10),
+                          color: Colors.transparent,
+                          height: 80,
+                          child: ListView.builder(
+                              shrinkWrap: true,
+                              scrollDirection: Axis.horizontal,
+                              itemCount: controller.alldish.length,
+                              itemBuilder: (context, index) {
+                                return Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Container(
+                                    width:
+                                        MediaQuery.of(context).size.width * 0.4,
+                                    child: Mybutton2(
+                                      onpress: () {
+                                        controller.getdishes(index);
+                                      },
+                                      buttontext: controller.alldish[index]
+                                              ["name"]
+                                          .toString()
+                                          .toUpperCase(),
+                                    ),
+                                  ),
+                                );
+                              }),
+                        ),
+                        controller.selectdish.isEmpty
+                            ? Center(
+                                child: Text("No Dish in this category"),
+                              )
+                            : ListView.builder(
+                                shrinkWrap: true,
+                                itemCount: controller.selectdish.length,
+                                itemBuilder: (context, index) {
+                                  var showdish = controller.selectdish[index];
+                                  return Card(
+                                    elevation: 10.0,
+                                    child: ListTile(
+                                        leading: CircleAvatar(
+                                          backgroundImage: NetworkImage(
+                                              showdish["dishimage"].toString()),
+                                        ),
+                                        title: Text(
+                                            showdish["dishname"].toString()),
+                                        trailing: Wrap(
+                                          children: [
+                                            Padding(
+                                              padding: const EdgeInsets.only(
+                                                  top: 15),
+                                              child: Text(
+                                                  "\$ ${showdish["dishprice"].toString()}"),
+                                            ),
+                                            IconButton(
+                                                onPressed: () {
+                                                  controller.deletdish(index);
+                                                },
+                                                icon: Icon(Icons.delete))
+                                          ],
+                                        )),
+                                  );
+                                })
+                      ],
+                    ),
                   );
           },
         ));
